@@ -2,13 +2,22 @@ import React, { useState, useEffect } from "react";
 import data from "./data";
 import Article from "./Article";
 
+const getStorageTheme = () => {
+    let theme = "light-theme";
+    if (localStorage.getItem("theme")) {
+        theme = localStorage.getItem("theme");
+    }
+    return theme;
+};
+
 function App() {
-    const [theme, setTheme] = useState("light-theme");
+    const [theme, setTheme] = useState(getStorageTheme());
 
     useEffect(() => {
         // const html = document.getElementsByTagName("HTML")[0];
         const html = document.documentElement;
         html.className = theme;
+        localStorage.setItem("theme", theme);
     }, [theme]);
 
     const toggleTheme = () => {
